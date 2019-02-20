@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Landing from './components/Landing';
 import './App.css'
+import 'bootstrap/dist/css/bootstrap.css';
+
 
 class App extends Component {
   render() {
