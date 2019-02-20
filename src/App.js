@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Landing from './components/Landing';
+import Maps from './components/Maps';
+
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -10,6 +12,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <Landing />
+          <Maps />
         </header>
       </div>
     );
