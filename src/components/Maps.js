@@ -14,6 +14,10 @@ export class MapContainer extends Component {
         <Map google={this.props.google}
         style={{width: '100%', height: '100%', position: 'relative'}}
         className={'map'}
+        initialCenter={{
+            lat: 51.9120937,
+            lng: 4.534785
+          }}
         zoom={14}>
         <Polygon
           paths={triangleCoords}
