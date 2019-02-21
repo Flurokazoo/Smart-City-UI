@@ -1,8 +1,39 @@
 import React, { Component } from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper, Polygon} from 'google-maps-react';
+import axios from 'axios';
 
 
 export class MapContainer extends Component {
+    componentDidMount() {
+        this.setState({
+            coordinates: []
+        })
+        axios.get('https://smartcity-parking-api.herokuapp.com/sectors')
+        .then(res => {
+            const sectors = res.data.data;
+            sectors.map(sector => {
+                axios.get(sector.self_links.detail)
+                .then(res => {
+                    console.log(res.data.data.sector_data.sector_id)
+                    const coordinateArray = res.data.data.coordinates;
+                    coordinateArray.map(coordinate => {                        
+                        let latlng = {
+                            lat: coordinate.latitude,
+                            lng: coordinate.longitude,
+                            id: res.data.data.sector_data.sector_id
+                        }
+
+                        this.state.coordinates.push(latlng);
+                    })
+                    // .then(res =>{
+                    //     console.log(res)
+                    // })
+                })
+            })
+            console.log(this.state.coordinates)
+
+        })
+    }
     render() {
         const triangleCoords = [
             {lat: 25.774, lng: -80.190},
