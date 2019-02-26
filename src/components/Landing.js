@@ -3,11 +3,13 @@ import './Landing.css'
 
 class Landing extends Component {
     render() {
+        console.log(this.props);
+
         return (
             <div className="Landing">
                 <div className="container">
                     <div className="row">
-                        <h1 className="display-3">Welcome to the Smart Parking UI</h1>
+                        <h1 className="display-3">{this.props.title}</h1>
                     </div>
                     <div className="row">
                         <p className="lead">This is the visual representation of the Smart Parking API. It will allow you to see the various available methods visually.</p>

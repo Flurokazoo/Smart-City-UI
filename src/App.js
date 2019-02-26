@@ -11,7 +11,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <Landing />
+          <Landing title={'Welcome to the Smart Parking UI'}/>
           <Maps />
         </header>
       </div>
