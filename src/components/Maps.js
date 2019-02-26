@@ -53,6 +53,9 @@ export class MapContainer extends Component {
     }
     render() {
 
+        const { coordinates, loading } = this.state
+        let array = ['kaas,', 'worst']
+        console.log(array)
 
         const triangleCoords = [
             { lat: 25.774, lng: -80.190 },
@@ -61,21 +64,20 @@ export class MapContainer extends Component {
             { lat: 25.774, lng: -80.190 }
         ];
 
-        if (this.state.loading === 'initial') {
+        if (loading === 'initial') {
             console.log('This happens 2nd - after the class is constructed. You will not see this element because React is still computing changes to the DOM.');
             return <h2>Intializing...</h2>;
         }
 
 
-        if (this.state.loading === 'true') {
+        if (loading === 'true') {
             console.log('This happens 5th - when waiting for data.');
             return <h2>Loading...</h2>;
         }
 
 
-        if(this.state.loading === 'false') {
-            const coordinates = this.state.coordinates
-
+        if(loading === 'false') {
+            console.log(coordinates)
             return (
                 <Map google={this.props.google}
                     style={{ width: '100%', height: '100%', position: 'relative' }}
