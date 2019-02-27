@@ -10,10 +10,12 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <Landing title={'Welcome to the Smart Parking UI'}/>
-          <Maps />
-        </header>
+        <div class="container">
+          <header className="App-header">
+            <Landing title={'Welcome to the Smart Parking UI'} />
+            <Maps />
+          </header>
+        </div>
       </div>
     );
   }
