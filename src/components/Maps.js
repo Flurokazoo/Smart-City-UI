@@ -101,20 +101,13 @@ export class MapContainer extends Component {
                             <Polygon
                                 paths={coordinate.latlng}
                                 onClick={this.handleClick}
-                                strokeColor="#0000FF"
-                                strokeOpacity={0.8}
+                                strokeColor="#9d63e5"
+                                strokeOpacity={1}
                                 strokeWeight={2}
-                                fillColor="#0000FF"
+                                fillColor="#9d63e5"
                                 fillOpacity={0.35} />
                         )
-                    })}
-                    <Polygon
-                        paths={triangleCoords}
-                        strokeColor="#0000FF"
-                        strokeOpacity={0.8}
-                        strokeWeight={2}
-                        fillColor="#0000FF"
-                        fillOpacity={0.35} />
+                    })}                    
                 </Map>
             );
 
