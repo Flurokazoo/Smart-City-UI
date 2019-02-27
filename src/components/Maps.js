@@ -17,7 +17,7 @@ export class MapContainer extends Component {
     }
 
     handleClick() {
-        console.log('click')
+        console.log(this)
     }
 
     componentDidMount() {
@@ -86,7 +86,7 @@ export class MapContainer extends Component {
             console.log(coordinates[0].latlng)
             return (
                 <Map google={this.props.google}
-                    style={{ width: '100%', height: '100%', position: 'relative' }}
+                    style={{ width: '50%', height: '50%', position: 'relative' }}
                     className={'map'}
                     initialCenter={{
                         lat: 51.9120937,
