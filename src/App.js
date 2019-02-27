@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.css';
-
 import Landing from './components/Landing';
 import Maps from './components/Maps';
-
 
 
 class App extends Component {
