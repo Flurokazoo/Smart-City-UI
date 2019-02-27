@@ -11,6 +11,13 @@ export class MapContainer extends Component {
             loading: 'initial'
         };
 
+        this.handleClick = this.handleClick.bind(this);
+
+
+    }
+
+    handleClick() {
+        console.log('click')
     }
 
     componentDidMount() {
@@ -90,6 +97,7 @@ export class MapContainer extends Component {
                         return (
                             <Polygon
                                 paths={coordinate.latlng}
+                                onClick={this.handleClick}
                                 strokeColor="#0000FF"
                                 strokeOpacity={0.8}
                                 strokeWeight={2}
