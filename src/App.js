@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 
 import './App.css'
-import 'bootstrap/dist/css/bootstrap.css';
+import 'bulma/css/bulma.css'
 import Landing from './components/Landing';
-import Maps from './components/Maps';
 
 
 class App extends Component {
@@ -11,8 +10,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <Landing title={'Welcome to the Smart Parking UI'} />
-          <Maps />
+          <Landing title={'Welcome to the Smart Parking UI'} />          
         </header>
       </div>
     );
