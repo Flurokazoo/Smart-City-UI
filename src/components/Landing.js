@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import './Landing.css'
-import axios from 'axios';
-import Card from './Card';
-import Maps from './Maps';
+import axios from 'axios'
+import Card from './Card'
+import Maps from './Maps'
 import Hero from './Hero'
 
 
 
 class Landing extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             coordinates: [{}],
             loading: 'initial'
-        };
+        }
     }
 
     componentDidMount() {
@@ -31,7 +31,7 @@ class Landing extends Component {
         const sectorsLinks = await Promise.all(sectors.map(sector => axios.get(sector.self_links.detail)))
 
         sectorsLinks.map((sector, i) => {
-            const coordinateArray = sector.data.data.coordinates;
+            const coordinateArray = sector.data.data.coordinates
             coordinates[i] = {
                 latlng: [],
                 id: sector.data.data.sector_data.sector_id
@@ -48,8 +48,8 @@ class Landing extends Component {
                 lat: parseFloat(coordinateArray[0].latitude),
                 lng: parseFloat(coordinateArray[0].longitude)
             })
-        });
-        console.log(coordinates);
+        })
+        console.log(coordinates)
         this.setState({
             coordinates: coordinates,
             loading: 'false'
@@ -84,17 +84,11 @@ class Landing extends Component {
                             </div>
                         </div>
                     </div>
-
-
-
-                    {/* <Card title='Grid' text='Get an overview of sectors within a grid of choice' image='https://twtg.io/wp-content/uploads/2018/02/Parking_1-1900x800.jpg' />
-                        <Card title='History' text='See the history of a given sector' image='https://twtg.io/wp-content/uploads/2018/02/Parking_2-1800x1013.jpg' /> */}
-
                 </div>
                 <Maps coordinates={coordinates} loading={loading} />
             </div>
-        );
+        )
     }
 }
 
-export default Landing;
+export default Landing

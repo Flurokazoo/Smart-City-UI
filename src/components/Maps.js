@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Map, InfoWindow, Marker, GoogleApiWrapper, Polygon } from 'google-maps-react';
+import React, { Component } from 'react'
+import { Map, InfoWindow, Marker, GoogleApiWrapper, Polygon } from 'google-maps-react'
 
 export class MapContainer extends Component {   
     
@@ -9,12 +9,12 @@ export class MapContainer extends Component {
         const { coordinates, loading, mapStyles } = this.props
        
         if (loading === 'initial') {
-            return <h2>Intializing...</h2>;
+            return <h2>Intializing...</h2>
         }
 
 
         if (loading === 'true') {
-            return <h2>Loading...</h2>;
+            return <h2>Loading...</h2>
         }
 
 
@@ -43,7 +43,7 @@ export class MapContainer extends Component {
                         )
                     })}                    
                 </Map>
-            );
+            )
         }        
     }
 }

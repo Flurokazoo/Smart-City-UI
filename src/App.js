@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-
+import React, { Component } from 'react'
+import {BrowserRouter, Route} from 'react-router-dom'
 import './App.css'
 import 'bulma/css/bulma.css'
-import Landing from './components/Landing';
+import Landing from './components/Landing'
 
 
 class App extends Component {
@@ -13,7 +13,7 @@ class App extends Component {
           <Landing title={'Welcome to the Smart Parking UI'} />          
         </header>
       </div>
-    );
+    )
   }
 }
 
