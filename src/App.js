@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 import './App.css'
 import 'bulma/css/bulma.css'
 import Landing from './components/Landing'
+import Notfound from './components/Notfound'
 
 
 class App extends Component {
