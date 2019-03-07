@@ -16,7 +16,7 @@ const Navbar = (props) =>
         </div>
 
         <div id="nav" className="navbar-menu">
-            <div className="navbar-start">              
+            <div className="navbar-start">
                 <NavLink className='navbar-item' exact to='/'>Home</NavLink>
 
                 <a className="navbar-item">

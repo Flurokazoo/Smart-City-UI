@@ -26,7 +26,7 @@ const Hero = (props) =>
                             <a className="navbar-item">
                                 Methods
                             </a>
-                            
+
                             <span className="navbar-item">
                                 <a className="button is-primary is-inverted">
                                     <span className="icon">
@@ -58,7 +58,7 @@ const Hero = (props) =>
                     <ul>
                         <li className="is-active"><a>Overview</a></li>
                         <li><a>Methods</a></li>
-                        <li><a>Sector overview</a></li>                        
+                        <li><a>Sector overview</a></li>
                     </ul>
                 </div>
             </nav>

@@ -1,15 +1,16 @@
 import React from 'react'
 import Navbar from './Navbar'
 
-const Sectors = (props) =>{
+const Distance = (props) =>{
     return <div>
         <Navbar />
         <div className="content">
             <section className="section">
-                <p className="is-size-4">Sectors</p>
+                <p className="is-size-4">Distance</p>
             </section>
         </div>
     </div>
 
 }
-export default Sectors
+
+export default Distance
