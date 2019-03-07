@@ -1,18 +1,21 @@
-import React, { Component } from 'react';
-import Landing from './components/Landing';
+import React, { Component } from 'react'
+import { Switch, Route } from 'react-router-dom'
 import './App.css'
-import 'bootstrap/dist/css/bootstrap.css';
+import 'bulma/css/bulma.css'
+import Landing from './components/Landing'
+import Notfound from './components/Notfound'
 
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <Landing />
-        </header>
+        <Switch>
+          <Route exact path="/" component={Landing} />         
+          <Route component={Notfound} />
+        </Switch>    
       </div>
-    );
+    )
   }
 }
 
