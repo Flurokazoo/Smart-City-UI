@@ -65,22 +65,30 @@ class Landing extends Component {
             <div className="Landing">
                 <Hero />
                 <div class="is-divider" data-content="OR"></div>
-                <div className="container" style={{marginTop: 40}}>     
+                <div className="container" style={{ marginTop: 40 }}>
 
-                <div className="content">
-                <section className="section">
-                <p className="is-size-4">Welcome to the Smart Parking UI. This UI functions as a visual representation of the Smart City API. Within this UI, it's possible to clearly see the results of the various methods found within the API. Below is a list of the various methods found within the API. Each page also contains a few snippets of code to fetch results within your favourite programming language.</p>
-                </section>
+                    <div className="content">
+                        <section className="section">
+                            <p className="is-size-4">Welcome to the Smart Parking UI. This UI functions as a visual representation of the Smart City API. Within this UI, it's possible to clearly see the results of the various methods found within the API. Below is a list of the various methods found within the API. Each page also contains a few snippets of code to fetch results within your favourite programming language.</p>
+                        </section>
 
-                
-                </div>          
-                    
+
+                    </div>
+
                     <div class="tile is-ancestor ">
                         <div class="tile is-12 is-vertical">
                             <div class="tile">
-                                <Card title='Sectors' text='Get an overview of all sectors' image='https://ak0.picdn.net/shutterstock/videos/4140430/thumb/1.jpg' colorClass="is-info" />
-                                <Card title='Sector History' text='Get an overview of all sectors' image='https://ak0.picdn.net/shutterstock/videos/4140430/thumb/1.jpg' colorClass="is-warning" />
-                                <Card title='Grid' text='Get an overview of all sectors' image='https://ak0.picdn.net/shutterstock/videos/4140430/thumb/1.jpg' colorClass="is-danger" />
+                                <Card title='All sectors' text='Get an overview of all sectors' image='https://ak0.picdn.net/shutterstock/videos/4140430/thumb/1.jpg' colorClass="is-info" />
+                                <Card title='Single sector' text='Get an overview of all sectors' image='https://ak0.picdn.net/shutterstock/videos/4140430/thumb/1.jpg' colorClass="is-danger" />
+                                <Card title='Sector history' text='Get an overview of all sectors' image='https://ak0.picdn.net/shutterstock/videos/4140430/thumb/1.jpg' colorClass="is-info" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tile is-ancestor ">
+                        <div class="tile is-12 is-vertical">
+                            <div class="tile">
+                                <Card title='Sectors within grid' text='Get an overview of all sectors' image='https://ak0.picdn.net/shutterstock/videos/4140430/thumb/1.jpg' colorClass="is-danger" />
+                                <Card title='Sectors within distance' text='Get an overview of all sectors' image='https://ak0.picdn.net/shutterstock/videos/4140430/thumb/1.jpg' colorClass="is-info" />
                             </div>
                         </div>
                     </div>
