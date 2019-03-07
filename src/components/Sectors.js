@@ -1,6 +1,7 @@
 import React from 'react'
+import Navbar from './Navbar'
 
 const Sectors = (props) =>
-    <div>Hello</div>
+    <Navbar />
 
 export default Sectors
