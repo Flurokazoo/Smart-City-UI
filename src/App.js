@@ -1,17 +1,19 @@
 import React, { Component } from 'react'
-import {BrowserRouter, Route} from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 import './App.css'
 import 'bulma/css/bulma.css'
 import Landing from './components/Landing'
+import Notfound from './components/Notfound'
 
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <Landing title={'Welcome to the Smart Parking UI'} />          
-        </header>
+        <Switch>
+          <Route exact path="/" component={Landing} />         
+          <Route component={Notfound} />
+        </Switch>    
       </div>
     )
   }
