@@ -9,6 +9,7 @@ import Singlesector from './components/Singlesector'
 import History from './components/History'
 import Grid from './components/Grid'
 import Distance from './components/Distance'
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 
 
@@ -16,19 +17,30 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Switch>
-          <Route exact path="/" component={Landing} />
-          <Route path="/sectors" component={Sectors} />
-          <Route path="/single" component={Singlesector} />
-          <Route path="/history" component={History} />
-          <Route path="/grid" component={Grid} />
-          <Route path="/distance" component={Distance} />
+        <Route render={({ location }) => (
+          <TransitionGroup>
+            <CSSTransition
+              key={location.key}
+              timeout={150}
+              classNames="fade"
+            >
+              <Switch location={location}>
+                <Route exact path="/" component={Landing} />
+                <Route path="/sectors" component={Sectors} />
+                <Route path="/single" component={Singlesector} />
+                <Route path="/history" component={History} />
+                <Route path="/grid" component={Grid} />
+                <Route path="/distance" component={Distance} />
 
-          <Route component={Notfound} />
-        </Switch>    
+                <Route component={Notfound} />
+              </Switch>
+            </CSSTransition>
+          </TransitionGroup>
+        )} />
+        
       </div>
-    )
+      )
+    }
   }
-}
-
-export default App;
+  
+  export default App;

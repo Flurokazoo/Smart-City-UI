@@ -2,7 +2,7 @@ import React from 'react'
 import Navbar from './Navbar'
 
 const History = (props) => {
-    return <div>
+    return <div className='page'>
         <Navbar />
         <div className="content">
             <section className="section">
