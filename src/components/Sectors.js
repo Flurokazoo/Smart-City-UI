@@ -2,7 +2,7 @@ import React from 'react'
 import Navbar from './Navbar'
 
 const Sectors = (props) => {
-    return <div>
+    return <div className='page'>
         <Navbar />
         <div className="container">
             <div className="content">

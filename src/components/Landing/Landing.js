@@ -62,7 +62,7 @@ class Landing extends Component {
 
         return (
 
-            <div className="Landing">
+            <div className="page">
                 <Hero />
                 <div class="is-divider" data-content="OR"></div>
                 <div className="container" style={{ marginTop: 40 }}>
