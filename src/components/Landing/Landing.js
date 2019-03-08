@@ -78,17 +78,17 @@ class Landing extends Component {
                     <div class="tile is-ancestor ">
                         <div class="tile is-12 is-vertical">
                             <div class="tile">
-                                <Card title='All sectors' text='Get an overview of all sectors' image='https://ak0.picdn.net/shutterstock/videos/4140430/thumb/1.jpg' colorClass="is-info" />
-                                <Card title='Single sector' text='Get an overview of all sectors' image='https://ak0.picdn.net/shutterstock/videos/4140430/thumb/1.jpg' colorClass="is-danger" />
-                                <Card title='Sector history' text='Get an overview of all sectors' image='https://ak0.picdn.net/shutterstock/videos/4140430/thumb/1.jpg' colorClass="is-info" />
+                                <Card title='All sectors' text='Get an overview of all sectors' colorClass="is-info" route='/sectors' />
+                                <Card title='Single sector' text='Get an overview of all sectors' colorClass="is-danger" route='/single' />
+                                <Card title='Sector history' text='Get an overview of all sectors' colorClass="is-info" route= '/history' />
                             </div>
                         </div>
                     </div>
                     <div class="tile is-ancestor ">
                         <div class="tile is-12 is-vertical">
                             <div class="tile">
-                                <Card title='Sectors within grid' text='Get an overview of all sectors' image='https://ak0.picdn.net/shutterstock/videos/4140430/thumb/1.jpg' colorClass="is-danger" />
-                                <Card title='Sectors within distance' text='Get an overview of all sectors' image='https://ak0.picdn.net/shutterstock/videos/4140430/thumb/1.jpg' colorClass="is-info" />
+                                <Card title='Sectors within grid' text='Get an overview of all sectors' colorClass="is-danger" route='/grid' />
+                                <Card title='Sectors within distance' text='Get an overview of all sectors' colorClass="is-info" route='/distance' />
                             </div>
                         </div>
                     </div>
