@@ -1,14 +1,11 @@
 import React from 'react'
-
+import Methods from './../Methods'
 const Hero = (props) =>
     <section className="hero is-primary is-bold">
         <div className="hero-head">
             <nav className="navbar">
                 <div className="container">
-                    <div className="navbar-brand">
-                        <h3 className="navbar-item subtitle">
-                            Smart City Parking UI
-                        </h3>
+                    <div className="navbar-brand">                    
                         <span className="navbar-burger burger" data-target="navbarMenuHeroA">
                             <span></span>
                             <span></span>
@@ -17,16 +14,7 @@ const Hero = (props) =>
                     </div>
                     <div id="navbarMenuHeroA" className="navbar-menu">
                         <div className="navbar-end">
-                            <a className="navbar-item is-active">
-                                Home
-                             </a>
-                            <a className="navbar-item">
-                                Documentation
-                            </a>
-                            <a className="navbar-item">
-                                Methods
-                            </a>
-                            
+
                             <span className="navbar-item">
                                 <a className="button is-primary is-inverted">
                                     <span className="icon">
@@ -58,7 +46,7 @@ const Hero = (props) =>
                     <ul>
                         <li className="is-active"><a>Overview</a></li>
                         <li><a>Methods</a></li>
-                        <li><a>Sector overview</a></li>                        
+                        <li><a>Sector overview</a></li>
                     </ul>
                 </div>
             </nav>
