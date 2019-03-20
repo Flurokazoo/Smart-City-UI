@@ -4,6 +4,7 @@ import axios from 'axios'
 import moment from 'moment'
 import Maps from '../components/Landing/Maps'
 import sensorImage from '../img/sensor.png';
+import { NavLink } from 'react-router-dom'
 
 class Singlesector extends Component {
     state = {
