@@ -11,8 +11,7 @@ const Sectors = (props) => {
                 </section>
             </div>
         </div>
-
     </div>
-
 }
+
 export default Sectors

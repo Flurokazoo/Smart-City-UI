@@ -21,12 +21,13 @@ class App extends Component {
           <TransitionGroup>
             <CSSTransition
               key={location.key}
-              timeout={150}
+              timeout={300}
               classNames="fade"
             >
               <Switch location={location}>
                 <Route exact path="/" component={Landing} />
                 <Route path="/sectors" component={Sectors} />
+                <Route path="/single/:id" component={Singlesector} />
                 <Route path="/single" component={Singlesector} />
                 <Route path="/history" component={History} />
                 <Route path="/grid" component={Grid} />
