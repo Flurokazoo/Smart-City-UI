@@ -10,82 +10,84 @@ class Singlesector extends Component {
     state = {
         sectorData: null,
         value: null,
-        selected: false,
     }
 
     componentDidMount() {
         this.getData()
     }
 
-    componentWillUpdate() {
-        const { selected, value } = this.state
-
-        if (selected && value) {
-            this.setState({
-                selected: false
-            })
-        }
-
-    }
-
-
     getData = async () => {
+        let coordinates = []
         let res = await axios.get('https://smartcity-parking-api.herokuapp.com/sectors')
         const sectors = await res.data.data
         const sectorsLinks = await Promise.all(sectors.map(sector => axios.get(sector.self_links.detail)))
 
+        sectorsLinks.map((sector, i) => {
+            const coordinateArray = sector.data.data.coordinates
+            coordinates[i] = {
+                latlng: [],
+                id: sector.data.data.sector_data.sector_id
+            }
+            coordinateArray.map(coordinate => {
+                let latlng = {
+                    lat: parseFloat(coordinate.latitude),
+                    lng: parseFloat(coordinate.longitude)
+                }
+                coordinates[i].latlng.push(latlng)
+            })
+
+            coordinates[i].latlng.push({
+                lat: parseFloat(coordinateArray[0].latitude),
+                lng: parseFloat(coordinateArray[0].longitude)
+            })
+        })       
+
         this.setState({
-            sectorData: sectorsLinks
+            sectorData: sectorsLinks,
+            coordinates: coordinates
         })
     }
 
-    handleChange = ({ target }) => {
+    handleClick = ({ target }) => {
         this.setState({
             value: target.value,
-
         })
-    }
-
-
-    handleSubmit = (e) => {
-        e.preventDefault()
-        if (this.state.value) {
-            this.setState({
-                selected: true
-            })
-        }
     }
 
     render() {
-        const { sectorData, value, selected } = this.state
+        const { sectorData, value, coordinates } = this.state
+        let currentSector
+        let currentCoordinates = []
+        try {
+            for (var i = 0; i < sectorData.length; i++) {
+                if (sectorData[i].data.data.sector_data.sector_id == value) {
+                    currentSector = sectorData[i].data.data
+                    break
+                }
+            }
+        } catch {
+        }
+
+
+
         let content, loadedContent
 
         if (sectorData != null) {
             content =
                 <div className="columns">
                     <div className="column">
-                        <div className="field">
-                            <label className="label">Subject</label>
-                            <div className="field is-grouped">
-                                <div className="control">
-                                    <div className="select is-large">
-                                        <select onChange={this.handleChange}>
-                                            <option hidden disabled selected value> Select a sector </option>
-                                            {sectorData.map((sector, i) => {
-                                                return <option value={sector.data.data.sector_data.sector_id}>Sector id: {sector.data.data.sector_data.sector_id}</option>
-                                            })}
-                                        </select>
-                                    </div>
-                                </div>
-                                <form onSubmit={this.handleSubmit}>
-                                    <button type='submit' className="button is-link is-large">Select this sector</button>
-                                </form>
-                            </div>
+                        <h3>Choose a sector:</h3>
 
+                        <div className="columns is-multiline">
+                            {sectorData.map((sector, i) => {
+                                let id = sector.data.data.sector_data.sector_id
+                                return <div class="column is-1">
+                                    <button onClick={this.handleClick} value={id} class="button is-large is-success">{id}</button>
+                                </div>
+                            })}
                         </div>
                     </div>
                     <div className="column">
-                        <code>beep boop</code>
                     </div>
                 </div>
 
@@ -93,25 +95,32 @@ class Singlesector extends Component {
             content = <a class="button is-loading is-large">Content is loading</a>
         }
 
-        if (selected) {
+        if (currentSector) {
+            coordinates.map((coordinate, i) => {
+                if(coordinate.id == value) {
+                    currentCoordinates.push(coordinate)
+                    
+                }
+            })
 
             loadedContent = <div className='content'>
-                <h2>{sectorData[value].data.data.sector_data.occupance_percentage}</h2>
+                <h3>Current sector status:</h3>
                 <div className="columns">
                     <div className="column is-half">
                         <article className="message is-primary">
                             <div className="message-header">
-                                <p>Parking data generated by cluster {sectorData[value].data.data.sector_data.sector_id}</p>
+                                <p>Parking data generated by cluster {currentSector.sector_data.sector_id}</p>
                             </div>
                             <div className="message-body">
                                 <div className='list is-size-4'>
-                                    <span className="list-item">Current occupation percentage: <span className="has-text-weight-bold"> {sectorData[value].data.data.sector_data.occupance_percentage * 100}</span></span>
-                                    <span className="list-item">Last measurement: {moment.unix(sectorData[value].data.data.sector_data.timestamp).calendar()}</span>
+                                    <span className="list-item">Current occupation percentage: <span className="has-text-weight-bold"> {currentSector.sector_data.occupance_percentage * 100}</span></span>
+                                    <span className="list-item">Last measurement: {moment.unix(currentSector.sector_data.timestamp).calendar()}</span>
                                 </div>
                             </div>
                         </article>
+                        <h3>Current sensor status:</h3>
                         <div className="columns is-multiline">
-                            {sectorData[value].data.data.sensors.map((sensor, i) => {
+                            {currentSector.sensors.map((sensor, i) => {
                                 let messageClass
                                 if (sensor.parked) {
                                     messageClass = 'message is-success'
@@ -127,22 +136,24 @@ class Singlesector extends Component {
                                             <img src={sensorImage}></img>
                                         </div>
                                     </article>
+
                                 </div>
-                            })}                            
+                            })}
                         </div>
 
                     </div>
+
                     <div className="column">
                         <div style={{
                             width: "100%", height: 500, marginLeft: 0, position: 'relative'
                         }}>
-                            <Maps loading={'false'} />
+                            <Maps loading={'false'} coordinates= {currentCoordinates}/>
                         </div>
                         <h2>Load the data of this sector via the following url:</h2>
                         <code>https://smartcity-parking-api.herokuapp.com/sector/{value}</code>
 
                         <h2>To see historical data generated by this sector, click here:</h2>
-                        <NavLink className="button is-link is-large" to={`history/${value}`}>Home</NavLink>           
+                        <NavLink className="button is-link is-large" to={`history/${value}`}>Home</NavLink>
 
 
                     </div>
@@ -159,7 +170,7 @@ class Singlesector extends Component {
                         <h1 className="title is-size-1">Single sector</h1>
                         {content}
 
-                        <hr></hr>
+                        <hr/>
 
                         {loadedContent}
                     </section>
