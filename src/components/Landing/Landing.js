@@ -49,7 +49,6 @@ class Landing extends Component {
                 lng: parseFloat(coordinateArray[0].longitude)
             })
         })
-        console.log(coordinates)
         this.setState({
             coordinates: coordinates,
             loading: 'false'
