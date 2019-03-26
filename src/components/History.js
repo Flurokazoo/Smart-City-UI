@@ -43,7 +43,7 @@ class History extends Component {
     }
 
     render() {
-        const { sectorData, url } = this.state
+        const { sectorData, url, value } = this.state
         let content, loadedContent
 
         if (sectorData != null) {
@@ -68,8 +68,12 @@ class History extends Component {
         } else {
             content = <a class="button is-loading is-large">Content is loading</a>
         }
-        
 
+        if(value != null){
+            loadedContent =
+                <div className="columns">
+                </div>
+        }
         return <div className='page'>
             <Navbar />
             <div className="container">
