@@ -3,7 +3,7 @@ import Methods from './Methods'
 import { NavLink } from 'react-router-dom'
 
 const Navbar = (props) =>
-    <nav className="navbar is-primary is-bold" role="navigation" aria-label="main navigation" >
+    <nav className="navbar is-primary is-reverse" role="navigation" aria-label="main navigation" >
         <div className="navbar-brand">
            
 
