@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import Navbar from './Navbar'
 import axios from 'axios'
+import DateRangePicker from '@wojtekmaj/react-daterange-picker'
 
 class History extends Component {
     state = {
         sectorData: null,
         url: null,
-        value: null
+        value: null,
+        dates: [new Date(), new Date()],
+        set: false
     }
 
     componentDidMount() {
@@ -16,7 +19,7 @@ class History extends Component {
     handleClick = ({ target }) => {
         const { sectorData } = this.state
         sectorData.map((sector) => {
-            if(sector.sector_id == target.value){
+            if (sector.sector_id == target.value) {
                 this.setState({
                     url: sector.self_links.history,
                     value: sector.sector_id
@@ -24,6 +27,13 @@ class History extends Component {
             }
         })
 
+    }
+
+    onChange = dates => {
+        this.setState({
+            dates: dates,
+            set: true
+        })
     }
 
     getHistory = async () => {
@@ -69,9 +79,15 @@ class History extends Component {
             content = <a class="button is-loading is-large">Content is loading</a>
         }
 
-        if(value != null){
+        if (value != null) {
             loadedContent =
                 <div className="columns">
+                    <div style={{margin: '0 auto'}}>
+                        <DateRangePicker
+                            onChange={this.onChange}
+                            value={this.state.dates}
+                        />
+                    </div>
                 </div>
         }
         return <div className='page'>
