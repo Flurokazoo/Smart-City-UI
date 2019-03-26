@@ -5,11 +5,29 @@ import axios from 'axios'
 class History extends Component {
     state = {
         sectorData: null,
-        value: null,
+        url: null,
+        value: null
     }
 
     componentDidMount() {
         this.getData()
+    }
+
+    handleClick = ({ target }) => {
+        const { sectorData } = this.state
+        sectorData.map((sector) => {
+            if(sector.sector_id == target.value){
+                this.setState({
+                    url: sector.self_links.history,
+                    value: sector.sector_id
+                })
+            }
+        })
+
+    }
+
+    getHistory = async () => {
+
     }
 
     getData = async () => {
@@ -25,7 +43,7 @@ class History extends Component {
     }
 
     render() {
-        const { sectorData, value } = this.state
+        const { sectorData, url } = this.state
         let content, loadedContent
 
         if (sectorData != null) {
@@ -50,6 +68,7 @@ class History extends Component {
         } else {
             content = <a class="button is-loading is-large">Content is loading</a>
         }
+        
 
         return <div className='page'>
             <Navbar />
