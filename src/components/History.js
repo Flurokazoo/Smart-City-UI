@@ -9,7 +9,8 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 class History extends Component {
     state = {
         sectorData: null,
-        url: null,
+        baseUrl: null,
+        nextUrl: null,
         value: null,
         dates: [new Date(), new Date()],
         set: false,
@@ -26,7 +27,8 @@ class History extends Component {
         sectorData.map((sector) => {
             if (sector.sector_id == target.value) {
                 this.setState({
-                    url: sector.self_links.history,
+                    baseUrl: sector.self_links.history,
+                    nextUrl: sector.self_links.history,
                     value: sector.sector_id
                 })
             }
@@ -35,10 +37,11 @@ class History extends Component {
     }
 
     onChange = dates => {
-        console.log(dates)
+        console.log(' change')
         this.setState({
             dates: dates,
-            set: true
+            set: true,
+            history: [],
         }, () => {
             this.getHistory();
         })
@@ -47,20 +50,19 @@ class History extends Component {
     }
 
     getHistory = async () => {
-        const { url, dates } = this.state
+        const { baseUrl, nextUrl, dates } = this.state
         let { history } = this.state
         const day = 86400
 
-        console.log(moment(dates[1]).unix() - moment(dates[0]).unix())
-        let res = await axios.get(url, {
+        let res = await axios.get(nextUrl, {
             params: {
                 start: moment(dates[0]).unix(),
                 end: moment(dates[1]).unix(),
                 limit: 100000
             }
         })
+        console.log(res)
         await res.data.data.entries.map((entry) => {
-            console.log(entry)
             history.push({
                 'name': moment.unix(entry.timestamp).format(),
                 'occupance': entry.average_occupance * 100
@@ -71,13 +73,14 @@ class History extends Component {
         })
         if (res.data.pagination.next_url) {
             this.setState({
-                url: res.data.pagination.next_url,
+                nextUrl: res.data.pagination.next_url,
                 historyLoaded: false
             })
             this.getHistory()
         } else {
             this.setState({
-                historyLoaded: true
+                historyLoaded: true,
+                nextUrl: baseUrl
             })
         }
 
@@ -89,7 +92,6 @@ class History extends Component {
         const sectors = await res.data.data
         const sectorsLinks = await Promise.all(sectors.map(sector => axios.get(sector.self_links.history)))
 
-        console.log(sectorsLinks)
 
         this.setState({
             sectorData: sectors
@@ -164,7 +166,7 @@ class History extends Component {
                 <div className="columns">
                     <div className="column">
                         <ResponsiveContainer width='100%' aspect={4.0 / 3.0} height={250} >
-                            <LineChart data={history}
+                            <LineChart data={history.slice()}
                                 margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                                 <CartesianGrid strokeDasharray="3 3" />
                                 <XAxis dataKey="name" />
