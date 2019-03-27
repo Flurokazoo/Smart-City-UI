@@ -3,7 +3,8 @@ import Herosub from './Herosub'
 import axios from 'axios'
 import DateRangePicker from '@wojtekmaj/react-daterange-picker'
 import moment from 'moment'
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
+
 
 class History extends Component {
     state = {
@@ -99,11 +100,43 @@ class History extends Component {
         const { sectorData, value, set, history, historyLoaded } = this.state
         let content, loadedContent, setContent
 
+        if (value != null) {
+            loadedContent =
+                <article class="message is-link" style={{ height: '100%' }}>
+                    <div class="message-header">
+                        <h2 class='has-text-white'>Choose a sector below:</h2>
+                    </div>
+                    <div class="message-body">
+                        <DateRangePicker
+                            onChange={this.onChange}
+                            value={this.state.dates}
+                        />
+                    </div>
+                </article>
+
+        }
+
         if (sectorData != null) {
             content =
                 <div className="columns">
                     <div className="column">
-                        <h1 class="title is-1">Choose a sector below:</h1>
+                        <article class="message is-link" style={{ height: '100%' }}>
+                            <div class="message-header">
+                                <h2 class='has-text-white'>Choose a sector below:</h2>
+                            </div>
+                            <div class="message-body">
+                                <div class='columns is-multiline'>
+                                    {sectorData.map((sector, i) => {
+                                        let id = sector.sector_id
+                                        return <button style={{ display: 'inline-block', marginLeft: 10 }} onClick={this.handleClick} value={id} class="button is-large is-danger is-outlined">{id}</button>
+
+                                    })}
+                                </div>
+
+                            </div>
+                        </article>
+
+                        <h1 class="title is-1">Set a date range:</h1>
 
                         <div className="columns is-multiline">
                             {sectorData.map((sector, i) => {
@@ -112,9 +145,11 @@ class History extends Component {
                                     <button onClick={this.handleClick} value={id} class="button is-large is-danger is-outlined">{id}</button>
                                 </div>
                             })}
+
                         </div>
                     </div>
                     <div className="column">
+                        {loadedContent}
                     </div>
                 </div>
 
@@ -122,17 +157,7 @@ class History extends Component {
             content = <a class="button is-loading is-large">Content is loading</a>
         }
 
-        if (value != null) {
-            loadedContent =
-                <div className="columns">
-                    <div style={{ margin: '0 auto' }}>
-                        <DateRangePicker
-                            onChange={this.onChange}
-                            value={this.state.dates}
-                        />
-                    </div>
-                </div>
-        }
+
 
         if (historyLoaded === true) {
             setContent =
@@ -166,8 +191,6 @@ class History extends Component {
                         {content}
 
                         <hr />
-
-                        {loadedContent}
 
                         {setContent}
                     </section>
