@@ -1,9 +1,10 @@
 import React from 'react'
 import Navbar from './Navbar'
+import Herosub from './Herosub'
 
 const Sectors = (props) => {
     return <div className='page'>
-        <Navbar />
+        <Herosub />
         <div className="container">
             <div className="content">
                 <section className="section">

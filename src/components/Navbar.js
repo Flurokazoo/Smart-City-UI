@@ -1,6 +1,8 @@
 import React from 'react'
 import Methods from './Methods'
 import { NavLink } from 'react-router-dom'
+import Herosub from './Herosub'
+
 
 const Navbar = (props) =>
     <nav className="navbar is-primary is-reverse" role="navigation" aria-label="main navigation" >

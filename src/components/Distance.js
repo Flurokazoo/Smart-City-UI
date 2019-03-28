@@ -3,7 +3,7 @@ import Navbar from './Navbar'
 
 const Distance = (props) =>{
     return <div className='page'>
-        <Navbar />
+        <Herosub />
         <div className="content">
             <section className="section">
                 <p className="is-size-4">Distance</p>

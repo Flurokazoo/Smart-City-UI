@@ -5,6 +5,7 @@ import moment from 'moment'
 import Maps from '../components/Landing/Maps'
 import sensorImage from '../img/sensor.png';
 import { NavLink } from 'react-router-dom'
+import Herosub from './Herosub'
 
 class Singlesector extends Component {
     state = {
@@ -163,7 +164,7 @@ class Singlesector extends Component {
             </div>
         }
         return <div className='page'>
-            <Navbar />
+            <Herosub />
             <div className="container">
                 <div className="content">
                     <section className="section">
