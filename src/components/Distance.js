@@ -1,5 +1,7 @@
 import React from 'react'
 import Navbar from './Navbar'
+import Herosub from './Herosub'
+
 
 const Distance = (props) =>{
     return <div className='page'>
