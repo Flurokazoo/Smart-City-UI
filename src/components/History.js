@@ -5,7 +5,6 @@ import DateRangePicker from '@wojtekmaj/react-daterange-picker'
 import moment from 'moment'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 
-
 class History extends Component {
     state = {
         sectorData: null,
@@ -33,7 +32,6 @@ class History extends Component {
                 })
             }
         })
-
     }
 
     onChange = dates => {
@@ -45,14 +43,11 @@ class History extends Component {
         }, () => {
             this.getHistory();
         })
-
-
     }
 
     getHistory = async () => {
         const { baseUrl, nextUrl, dates } = this.state
         let { history } = this.state
-        const day = 86400
 
         let res = await axios.get(nextUrl, {
             params: {
@@ -61,7 +56,6 @@ class History extends Component {
                 limit: 100000
             }
         })
-        console.log(res)
         await res.data.data.entries.map((entry) => {
             history.push({
                 'name': moment.unix(entry.timestamp).format(),
@@ -83,15 +77,11 @@ class History extends Component {
                 nextUrl: baseUrl
             })
         }
-
-
     }
 
     getData = async () => {
         let res = await axios.get('https://smartcity-parking-api.herokuapp.com/sectors')
         const sectors = await res.data.data
-        const sectorsLinks = await Promise.all(sectors.map(sector => axios.get(sector.self_links.history)))
-
 
         this.setState({
             sectorData: sectors
@@ -99,7 +89,7 @@ class History extends Component {
     }
 
     render() {
-        const { sectorData, value, set, history, historyLoaded } = this.state
+        const { sectorData, value, history, historyLoaded } = this.state
         let content, loadedContent, setContent
 
         if (value != null) {
@@ -136,30 +126,15 @@ class History extends Component {
                                 </div>
 
                             </div>
-                        </article>
-
-                        <h1 class="title is-1">Set a date range:</h1>
-
-                        <div className="columns is-multiline">
-                            {sectorData.map((sector, i) => {
-                                let id = sector.sector_id
-                                return <div class="column is-1">
-                                    <button onClick={this.handleClick} value={id} class="button is-large is-danger is-outlined">{id}</button>
-                                </div>
-                            })}
-
-                        </div>
+                        </article>                       
                     </div>
                     <div className="column">
                         {loadedContent}
                     </div>
                 </div>
-
         } else {
             content = <a class="button is-loading is-large">Content is loading</a>
         }
-
-
 
         if (historyLoaded === true) {
             setContent =
@@ -171,29 +146,23 @@ class History extends Component {
                                 <CartesianGrid strokeDasharray="3 3" />
                                 <XAxis dataKey="name" />
                                 <YAxis dataKey="occupance" />
+                                <YAxis type="number" domain={[0, 100]}/>
                                 <Tooltip />
                                 <Legend />
                                 <Line type="monotone" dataKey="occupance" stroke="#8884d8" />
                             </LineChart>
                         </ResponsiveContainer>
-
                     </div>
                 </div>
-
-
-
         }
 
         return <div className='page'>
             <Herosub title='History' />
-
             <div className="container">
                 <div className="content">
                     <section className="section">
                         {content}
-
                         <hr />
-
                         {setContent}
                     </section>
                 </div>
@@ -201,8 +170,5 @@ class History extends Component {
         </div>
     }
 }
-
-
-
 
 export default History
