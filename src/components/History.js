@@ -3,7 +3,9 @@ import Herosub from './Herosub'
 import axios from 'axios'
 import DateRangePicker from '@wojtekmaj/react-daterange-picker'
 import moment from 'moment'
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
+//import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
+import { Line } from 'react-chartjs-2'
+
 
 class History extends Component {
     state = {
@@ -14,11 +16,45 @@ class History extends Component {
         dates: [new Date(), new Date()],
         set: false,
         history: [],
-        historyLoaded: false
+        historyLoaded: false,
+        data: null,
+        labels: []
     }
 
     componentDidMount() {
         this.getData()
+        this.updateData()
+    }
+
+    updateData() {
+        this.setState({
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [
+                    {
+                        label: 'My First dataset',
+                        fill: false,
+                        lineTension: 0.1,
+                        backgroundColor: 'rgba(75,192,192,0.4)',
+                        borderColor: 'rgba(75,192,192,1)',
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        pointBorderColor: 'rgba(75,192,192,1)',
+                        pointBackgroundColor: '#fff',
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+                        pointHoverBorderColor: 'rgba(220,220,220,1)',
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                        data: [65, 59, 80, 81, 56, 55, 40]
+                    }
+                ]
+            }
+        })
     }
 
     handleClick = ({ target }) => {
@@ -40,6 +76,7 @@ class History extends Component {
             dates: dates,
             set: true,
             history: [],
+            labels: []
         }, () => {
             this.getHistory();
         })
@@ -47,7 +84,7 @@ class History extends Component {
 
     getHistory = async () => {
         const { baseUrl, nextUrl, dates } = this.state
-        let { history } = this.state
+        let { history, labels } = this.state
 
         let res = await axios.get(nextUrl, {
             params: {
@@ -57,13 +94,12 @@ class History extends Component {
             }
         })
         await res.data.data.entries.map((entry) => {
-            history.push({
-                'name': moment.unix(entry.timestamp).format(),
-                'occupance': entry.average_occupance * 100
-            })
+            history.push(entry.average_occupance * 100)
+            labels.push(moment.unix(entry.timestamp).format())
         })
         this.setState({
-            history: history
+            history: history,
+            labels: labels
         })
         if (res.data.pagination.next_url) {
             this.setState({
@@ -89,7 +125,7 @@ class History extends Component {
     }
 
     render() {
-        const { sectorData, value, history, historyLoaded } = this.state
+        const { sectorData, value, history, historyLoaded, data } = this.state
         let content, loadedContent, setContent
 
         if (value != null) {
@@ -126,7 +162,7 @@ class History extends Component {
                                 </div>
 
                             </div>
-                        </article>                       
+                        </article>
                     </div>
                     <div className="column">
                         {loadedContent}
@@ -137,10 +173,12 @@ class History extends Component {
         }
 
         if (historyLoaded === true) {
+            console.log(data)
             setContent =
                 <div className="columns">
                     <div className="column">
-                        <ResponsiveContainer width='100%' aspect={4.0 / 3.0} height={250} >
+                    <Line data={data} />
+                        {/* <ResponsiveContainer width='100%' aspect={4.0 / 3.0} height={250} >
                             <LineChart data={history.slice()}
                                 margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                                 <CartesianGrid strokeDasharray="3 3" />
@@ -151,7 +189,7 @@ class History extends Component {
                                 <Legend />
                                 <Line type="monotone" dataKey="occupance" stroke="#8884d8" />
                             </LineChart>
-                        </ResponsiveContainer>
+                        </ResponsiveContainer> */}
                     </div>
                 </div>
         }
