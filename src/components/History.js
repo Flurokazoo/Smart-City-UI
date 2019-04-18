@@ -6,7 +6,6 @@ import moment from 'moment'
 //import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 import { Line } from 'react-chartjs-2'
 
-
 class History extends Component {
     state = {
         sectorData: null,
@@ -27,12 +26,42 @@ class History extends Component {
     }
 
     updateData() {
+        const { labels, history } = this.state
+        let min = []
+        let max = []
+        console.log(labels.length)
+        for (let i = 0; i < labels.length; i++) {
+            min[i] = 65
+            max[i] = 85            
+        }
         this.setState({
             data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                labels: labels,
                 datasets: [
+                    
                     {
-                        label: 'My First dataset',
+                        label: 'Min',
+                        fill: 'start',
+                        lineTension: 0.1,
+                        backgroundColor: 'rgba(255,0,0,0.1)',
+                        borderColor: 'rgba(128,128,128,0.5)',
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        pointBorderColor: 'rgba(75,192,192,1)',
+                        pointBackgroundColor: '#fff',
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+                        pointHoverBorderColor: 'rgba(220,220,220,1)',
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                        data: min,                        
+                    },
+                    {
+                        label: 'Parking data',
                         fill: false,
                         lineTension: 0.1,
                         backgroundColor: 'rgba(75,192,192,0.4)',
@@ -50,8 +79,32 @@ class History extends Component {
                         pointHoverBorderWidth: 2,
                         pointRadius: 1,
                         pointHitRadius: 10,
-                        data: [65, 59, 80, 81, 56, 55, 40]
-                    }
+                        data: history,                        
+                    },
+                    {
+                        label: 'Max',
+                        fill: 'end',
+                        lineTension: 0.1,
+                        backgroundColor: 'rgba(255,0,0,0.1)',
+                        borderColor: 'rgba(128,128,128,0.5)',
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        pointBorderColor: 'rgba(75,192,192,1)',
+                        pointBackgroundColor: '#fff',
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+                        pointHoverBorderColor: 'rgba(220,220,220,1)',
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                        data: max,                        
+                    },
+                    
+                    
+                    
                 ]
             }
         })
@@ -85,22 +138,48 @@ class History extends Component {
     getHistory = async () => {
         const { baseUrl, nextUrl, dates } = this.state
         let { history, labels } = this.state
+        const day = 86400
+        const hour = 3600
+        const difference = (moment(dates[1]).unix() - moment(dates[0]).unix()) / day
+        let interval
+
+        switch(true) {
+            case (difference < 1):
+                interval = hour
+                break
+            case (difference >= 1 && difference < 3):
+                interval = hour * 2
+                break
+            case (difference >= 3 && difference < 7):
+                interval = hour * 6
+                break
+            case (difference >= 7 && difference < 14):
+                interval = hour * 12
+                break
+            case (difference >= 14):
+                interval = hour * 24
+                break
+
+        }
 
         let res = await axios.get(nextUrl, {
             params: {
                 start: moment(dates[0]).unix(),
                 end: moment(dates[1]).unix(),
-                limit: 100000
+                interval: interval
             }
         })
         await res.data.data.entries.map((entry) => {
-            history.push(entry.average_occupance * 100)
-            labels.push(moment.unix(entry.timestamp).format())
+            history.push(Math.round(entry.average_occupance * 100))
+            labels.push(moment.unix(entry.timestamp).format("dddd, MMMM Do YYYY, HH:mm"))
         })
         this.setState({
             history: history,
             labels: labels
         })
+
+        this.updateData()
+
         if (res.data.pagination.next_url) {
             this.setState({
                 nextUrl: res.data.pagination.next_url,
@@ -177,7 +256,16 @@ class History extends Component {
             setContent =
                 <div className="columns">
                     <div className="column">
-                    <Line data={data} />
+                    <Line data={data}
+                        options={{scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero:true,
+                                    min: 0,
+                                    max: 100    
+                                }
+                              }]
+                           }}} />
                         {/* <ResponsiveContainer width='100%' aspect={4.0 / 3.0} height={250} >
                             <LineChart data={history.slice()}
                                 margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
