@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import './App.css'
 import 'bulma/css/bulma.css'
+import 'bulma-extensions/bulma-divider/dist/css/bulma-divider.min.css'
 import Landing from './components/Landing/Landing'
 import Notfound from './components/Notfound'
 import Sectors from './components/Sectors'
@@ -9,7 +10,7 @@ import Singlesector from './components/Singlesector'
 import History from './components/History'
 import Grid from './components/Grid'
 import Distance from './components/Distance'
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
 
 
