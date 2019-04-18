@@ -79,20 +79,27 @@ class Landing extends Component {
                             <div class="tile">
                                 <Card title='All sectors' text='Get an overview of all sectors' colorClass="is-info" route='/sectors' />
                                 <Card title='Single sector' text='Get an overview of all sectors' colorClass="is-danger" route='/single' />
-                                <Card title='Sector history' text='Get an overview of all sectors' colorClass="is-info" route= '/history' />
+                                <Card title='Sector history' text='Get an overview of all sectors' colorClass="is-info" route='/history' />
                             </div>
                         </div>
                     </div>
-                    <div class="tile is-ancestor ">
+                    {/* <div class="tile is-ancestor ">
                         <div class="tile is-12 is-vertical">
                             <div class="tile">
                                 <Card title='Sectors within grid' text='Get an overview of all sectors' colorClass="is-danger" route='/grid' />
                                 <Card title='Sectors within distance' text='Get an overview of all sectors' colorClass="is-info" route='/distance' />
                             </div>
                         </div>
+                    </div> */}
+
+                    <div style={{
+                        width: "100%", height: 500, marginLeft: 0, position: 'relative'
+                    }}>
+                        <Maps coordinates={coordinates} loading={loading} />
+
                     </div>
                 </div>
-                <Maps coordinates={coordinates} loading={loading} />
+
             </div>
         )
     }

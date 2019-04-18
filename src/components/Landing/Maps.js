@@ -4,24 +4,15 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper, Polygon } from 'google-maps-
 export class MapContainer extends Component {
 
     render() {
-        console.log(this.props)
-
         const { coordinates, loading, mapStyles } = this.props
-
-        const streetview = this.props.google.maps.StreetViewPanorama
-
-        console.log(streetview)
-
 
         if (loading === 'initial') {
             return <h2>Intializing...</h2>
         }
 
-
         if (loading === 'true') {
             return <h2>Loading...</h2>
         }
-
 
         if (loading === 'false' && coordinates) {
             return (
@@ -29,11 +20,11 @@ export class MapContainer extends Component {
                     style={{ width: '100%', height: '100%', position: 'relative' }}
                     className={'map'}
                     initialCenter={{
-                        lat: 51.9120937,
-                        lng: 4.534785
+                        lat: 51.9067009,
+                        lng: 4.5444753
                     }}
                     styles={mapStyles}
-                    zoom={40}>
+                    zoom={18}>
                     {coordinates.map(coordinate => {
                         return (
                             <Polygon
