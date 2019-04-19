@@ -3,7 +3,6 @@ import Herosub from './Herosub'
 import axios from 'axios'
 import DateRangePicker from '@wojtekmaj/react-daterange-picker'
 import moment from 'moment'
-//import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 import { Line } from 'react-chartjs-2'
 
 class History extends Component {
@@ -265,19 +264,7 @@ class History extends Component {
                                     max: 100    
                                 }
                               }]
-                           }}} />
-                        {/* <ResponsiveContainer width='100%' aspect={4.0 / 3.0} height={250} >
-                            <LineChart data={history.slice()}
-                                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="name" />
-                                <YAxis dataKey="occupance" />
-                                <YAxis type="number" domain={[0, 100]}/>
-                                <Tooltip />
-                                <Legend />
-                                <Line type="monotone" dataKey="occupance" stroke="#8884d8" />
-                            </LineChart>
-                        </ResponsiveContainer> */}
+                           }}} />          
                     </div>
                 </div>
         }
