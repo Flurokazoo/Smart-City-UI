@@ -36,6 +36,14 @@ class Sectors extends Component {
                 <div class="tile is-ancestor">
 
                     {sectors.map((sector, i) => {
+                        let occupanceClass
+                        const occupance = Math.round(sector.occupance_percentage * 100)
+
+                        if(occupance < 65 || occupance > 85) {
+                            occupanceClass="has-text-danger"                            
+                        }else {
+                            occupanceClass="has-text-success"
+                        }
                         console.log(sector)
                         return <div class="tile is-parent is-4">
                             <article class="tile is-child notification">
@@ -44,7 +52,7 @@ class Sectors extends Component {
 
                                     <div class="content">
                                         <div class="content has-text-centered">
-                                            <h2>Current parking occupation: {Math.round(sector.occupance_percentage * 100)}%</h2>
+                                            <h2>Current parking occupation: <strong class={occupanceClass}>{Math.round(sector.occupance_percentage * 100)}%</strong></h2>
                                         </div>
                                         <div class="content has-text-centered">
                                             <h3>API links:</h3>
