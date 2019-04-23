@@ -76,16 +76,21 @@ class Singlesector extends Component {
             content =
                 <div className="columns">
                     <div className="column">
-                        <h3>Choose a sector:</h3>
+                    <article class="message is-link" style={{ height: '100%' }}>
+                            <div class="message-header">
+                                <h2 class='has-text-white'>Choose a sector below:</h2>
+                            </div>
+                            <div class="message-body">
+                                <div class='columns is-multiline'>
+                                    {sectorData.map((sector, i) => {
+                                        let id = sector.data.data.sector_data.sector_id
+                                        return <button style={{ display: 'inline-block', marginLeft: 10 }} onClick={this.handleClick} value={id} class="button is-large is-danger is-outlined">{id}</button>
 
-                        <div className="columns is-multiline">
-                            {sectorData.map((sector, i) => {
-                                let id = sector.data.data.sector_data.sector_id
-                                return <div class="column is-1">
-                                    <button onClick={this.handleClick} value={id} class="button is-large is-success">{id}</button>
+                                    })}
                                 </div>
-                            })}
-                        </div>
+
+                            </div>
+                        </article>
                     </div>
                     <div className="column">
                     </div>
@@ -123,9 +128,9 @@ class Singlesector extends Component {
                             {currentSector.sensors.map((sensor, i) => {
                                 let messageClass
                                 if (sensor.parked) {
-                                    messageClass = 'message is-success'
-                                } else {
                                     messageClass = 'message is-danger'
+                                } else {
+                                    messageClass = 'message is-success'
                                 }
                                 return <div className="column is-one-third">
                                     <article className={messageClass}>
