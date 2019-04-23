@@ -171,7 +171,8 @@ class History extends Component {
         await res.data.data.entries.map((entry) => {
             history.push(Math.round(entry.average_occupance * 100))
             labels.push(moment.unix(entry.timestamp).format("dddd, MMMM Do YYYY, HH:mm"))
-        })
+        })       
+
         this.setState({
             history: history,
             labels: labels
@@ -188,7 +189,9 @@ class History extends Component {
         } else {
             this.setState({
                 historyLoaded: true,
-                nextUrl: baseUrl
+                nextUrl: baseUrl,
+                history: history.reverse(),
+                labels: labels.reverse()
             })
         }
     }
@@ -203,14 +206,14 @@ class History extends Component {
     }
 
     render() {
-        const { sectorData, value, history, historyLoaded, data } = this.state
+        const { sectorData, value, dates, historyLoaded, data } = this.state
         let content, loadedContent, setContent
 
         if (value != null) {
             loadedContent =
                 <article class="message is-link" style={{ height: '100%' }}>
                     <div class="message-header">
-                        <h2 class='has-text-white'>Choose a sector below:</h2>
+                        <h2 class='has-text-white'>Choose a date range below:</h2>
                     </div>
                     <div class="message-body">
                         <DateRangePicker
@@ -255,8 +258,10 @@ class History extends Component {
             setContent =
                 <div className="columns">
                     <div className="column">
+                    <h1>History of sector {value} between {moment(dates[0]).calendar()} and {moment(dates[1]).calendar()}</h1>
                     <Line data={data}
-                        options={{scales: {
+                        options={{
+                            scales: {
                             yAxes: [{
                                 ticks: {
                                     beginAtZero:true,
@@ -264,6 +269,9 @@ class History extends Component {
                                     max: 100    
                                 }
                               }]
+                           },
+                           legend: {
+                               display: false
                            }}} />          
                     </div>
                 </div>
