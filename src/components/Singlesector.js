@@ -40,7 +40,7 @@ class Singlesector extends Component {
                 lat: parseFloat(coordinateArray[0].latitude),
                 lng: parseFloat(coordinateArray[0].longitude)
             })
-        })       
+        })
 
         this.setState({
             sectorData: sectorsLinks,
@@ -76,7 +76,7 @@ class Singlesector extends Component {
             content =
                 <div className="columns">
                     <div className="column">
-                    <article class="message is-link" style={{ height: '100%' }}>
+                        <article class="message is-link" style={{ height: '100%' }}>
                             <div class="message-header">
                                 <h2 class='has-text-white'>Choose a sector below:</h2>
                             </div>
@@ -101,12 +101,68 @@ class Singlesector extends Component {
         }
 
         if (currentSector) {
-            coordinates.map((coordinate, i) => {
-                if(coordinate.id == value) {
-                    currentCoordinates.push(coordinate)
-                    
+            console.log(currentSector.sector_data.sector_id)
+            // coordinates.map((coordinate, i) => {
+            //     if (coordinate.id == value) {
+            //         console.log(coordinate)
+            //         currentCoordinates.push(coordinate)
+            //     }
+            // })
+
+            if (currentSector.sector_data.sector_id == 0) {
+                currentCoordinates[0] = {
+                    id: 0,
+                    latlng: [
+                        {
+                            lat: 51.906642,
+                            lng: 4.545139
+                        },
+                        {
+                            lat: 51.906679,
+                            lng: 4.545316
+                        },
+                        {
+                            lat: 51.906500,
+                            lng: 4.545348
+                        },
+                        {
+                            lat: 51.906494,
+                            lng: 4.545203
+                        },
+                        {
+                            lat: 51.906642,
+                            lng: 4.545139
+                        }
+                    ]
                 }
-            })
+            } else if (currentSector.sector_data.sector_id == 1) {
+                currentCoordinates[0] = {
+                    id: 1,
+                    latlng: [
+                        {
+                            lat: 51.906563,
+                            lng: 4.544860
+                        },
+                        {
+                            lat: 51.906450,
+                            lng: 4.544903
+                        },
+                        {
+                            lat: 51.906424,
+                            lng: 4.544726
+                        },
+                        {
+                            lat: 51.906560,
+                            lng: 4.544699
+                        },
+                        {
+                            lat: 51.906563,
+                            lng: 4.544860
+                        }
+                    ]
+                }
+            }
+            console.log(currentCoordinates)
 
             loadedContent = <div className='content'>
                 <h3>Current sector status:</h3>
@@ -152,7 +208,7 @@ class Singlesector extends Component {
                         <div style={{
                             width: "100%", height: 500, marginLeft: 0, position: 'relative'
                         }}>
-                            <Maps loading={'false'} coordinates= {currentCoordinates}/>
+                            <Maps loading={'false'} coordinates={currentCoordinates} />
                         </div>
                         <h2>Load the data of this sector via the following url:</h2>
                         <code>https://smartcity-parking-api.herokuapp.com/sector/{value}</code>
@@ -175,7 +231,7 @@ class Singlesector extends Component {
                         <h1 className="title is-size-1">Single sector</h1>
                         {content}
 
-                        <hr/>
+                        <hr />
 
                         {loadedContent}
                     </section>

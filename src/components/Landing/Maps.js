@@ -30,10 +30,10 @@ export class MapContainer extends Component {
                             <Polygon
                                 paths={coordinate.latlng}
                                 onClick={this.handleClick}
-                                strokeColor="#9d63e5"
+                                strokeColor="#ff0000"
                                 strokeOpacity={1}
                                 strokeWeight={2}
-                                fillColor="#9d63e5"
+                                fillColor="#ff0000"
                                 fillOpacity={0.35} />
                         )
                     })}
